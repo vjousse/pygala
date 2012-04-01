@@ -1,3 +1,4 @@
+package pygala
 package controllers
 
 import play.api._
