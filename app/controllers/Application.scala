@@ -18,7 +18,7 @@ object Application extends Controller {
   def highlight = Action { implicit request =>
     codeForm.bindFromRequest.fold(
       formWithErrors => BadRequest("Oh, that's bad."),
-      value => Ok("Code "+ value +" highlighted with lang "+ value)
+      value => Ok("Code "+ value +" highlighted with lang "+ lang)
     )
   }
 }
