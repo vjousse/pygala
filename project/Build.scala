@@ -12,7 +12,14 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(
-      // Add your own project settings here      
+      resolvers ++= Seq(
+        "iliaz.com" at "http://scala.iliaz.com/"
+        ),
+      libraryDependencies ++= Seq(
+        "org.scalaz" %% "scalaz-core" % "6.0.4",
+        "com.github.ornicar" %% "scalalib" % "1.23"
+        ),
+      scalacOptions := Seq("-deprecation", "-unchecked")
     )
 
 }
