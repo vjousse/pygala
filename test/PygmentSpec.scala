@@ -28,7 +28,8 @@ Lexers:
           "gherkin" -> "Gherkin (filenames *.feature)",
           "cucumber" -> "Gherkin (filenames *.feature)",
           "abap" -> "ABAP (filenames *.abap)",
-          "ada95ada2005" -> "ABAP (filenames *.abap)",
+          "ada" -> "Ada (filenames *.adb, *.ads, *.ada)",
+          "ada95ada2005" -> "Ada (filenames *.adb, *.ads, *.ada)",
           "ahk" -> "autohotkey (filenames *.ahk, *.ahkl)"
         )
       )

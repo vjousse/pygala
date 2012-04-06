@@ -22,12 +22,25 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
   def supportedFormats(): IO[Map[String, String]] = io {
     val command: String = pygmentBin + " -L lexer"
     val result: String  = command.!!
-    println(result)
-    Map("scala" -> "todo")
+    parsePygmentList(result)
   }
 
   def parsePygmentList(list: String): Map[String, String] = {
-    Map("scala" -> "todo")
+    val listString = augmentString(list)
+
+    val headers = listString.lines
+      .filter(_.startsWith("* "))
+      .map { line => line.slice(2,line.length-1).toLowerCase }
+
+    val descriptions = listString.lines
+      .filter(_.startsWith("    "))
+      .map { _.trim }
+
+    for {
+      (key, value) <- headers.zip(descriptions).toList.toMap
+      explodedKey <- key.split(",")
+    } yield((explodedKey.trim, value))
+
   }
 
   private def writeToTempFile(prefix: String, data: String): IO[File] = io {
