@@ -26,13 +26,13 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
   }
 
   def parsePygmentList(list: String): Map[String, String] = {
-    val listString = augmentString(list)
+    val listString = augmentString(list).lines
 
-    val headers = listString.lines
+    val headers = listString
       .filter(_.startsWith("* "))
       .map { line => line.slice(2,line.length-1).toLowerCase }
 
-    val descriptions = listString.lines
+    val descriptions = listString
       .filter(_.startsWith("    "))
       .map { _.trim }
 
