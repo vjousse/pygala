@@ -21,14 +21,15 @@ object Application extends PygalaController {
   def highlight = Action { implicit request ⇒
     codeForm.bindFromRequest.fold(
       formWithErrors ⇒ BadRequest("Oh, that's bad."),
-      value ⇒ env.parser.colorCode(value._1, value._2).fold(
-        error ⇒ BadRequest(error),
-        code ⇒ Ok(code.unsafePerformIO)))
+      value ⇒ env.supportedFormats.get(value._2.toLowerCase) match {
+        case Some(_) ⇒ env.parser.colorCode(value._1, value._2).fold(
+          error ⇒ BadRequest(error),
+          code ⇒ Ok(code.unsafePerformIO))
+        case None ⇒ BadRequest("Unsupported language to highlight: " + value._2)
+      })
   }
 
   def lexers = Action {
-
     JsonOk(env.supportedFormats)
-
   }
 }
