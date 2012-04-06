@@ -6,9 +6,12 @@ import play.api.mvc._
 
 import play.api.data._
 import play.api.data.Forms._
+
+import com.codahale.jerkson.Json.generate
+
 import scalaz.effects._
 
-object Application extends Controller with PygalaController {
+object Application extends PygalaController {
 
   val codeForm = Form(
     tuple(
@@ -20,7 +23,14 @@ object Application extends Controller with PygalaController {
       formWithErrors ⇒ BadRequest("Oh, that's bad."),
       value ⇒ env.parser.colorCode(value._1, value._2).fold(
         error ⇒ BadRequest(error),
-        code ⇒ Ok(code.unsafePerformIO)
-      ))
+        code ⇒ Ok(code.unsafePerformIO)))
+  }
+
+  def lexers = Action {
+
+    JsonOk(for {
+      formats ← env.parser.supportedFormats.unsafePerformIO
+    } yield (formats))
+
   }
 }

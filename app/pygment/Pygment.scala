@@ -20,9 +20,7 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
   }
 
   def supportedFormats(): IO[Map[String, String]] = io {
-    val command: String = pygmentBin + " -L lexer"
-    val result: String  = command.!!
-    parsePygmentList(result)
+    parsePygmentList((pygmentBin + " -L lexer").!!)
   }
 
   def parsePygmentList(list: String): Map[String, String] = {
