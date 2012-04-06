@@ -10,6 +10,7 @@ class PygalaEnv(configuration: Configuration) {
   val pygmentBin: String = configuration.underlying.getString("pygment.bin")
 
   val parser = Pygment(pygmentBin)
+  val supportedFormats:Map[String, String] = parser.supportedFormats.unsafePerformIO
 
   private def conf(key: String): Option[String] = configuration getString key
 }

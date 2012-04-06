@@ -28,9 +28,7 @@ object Application extends PygalaController {
 
   def lexers = Action {
 
-    JsonOk(for {
-      formats ← env.parser.supportedFormats.unsafePerformIO
-    } yield (formats))
+    JsonOk(env.supportedFormats)
 
   }
 }
