@@ -30,16 +30,16 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
 
     val headers = listString
       .filter(_.startsWith("* "))
-      .map { line => line.slice(2,line.length-1).toLowerCase }
+      .map { line => line.drop(2).dropRight(1).toLowerCase }
 
     val descriptions = listString
       .filter(_.startsWith("    "))
       .map { _.trim }
 
     for {
-      (key, value) <- headers.zip(descriptions).toList.toMap
+      (key, value) <- headers.zip(descriptions).toMap
       explodedKey <- key.split(",")
-    } yield((explodedKey.trim, value))
+    } yield(explodedKey.trim, value)
 
   }
 
