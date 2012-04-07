@@ -2,6 +2,7 @@ package pygala
 package pygment
 
 import models.SourceParser
+import util.FileUtil
 
 import java.io.File
 
@@ -15,7 +16,7 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
     val command: String = pygmentBin + " -l " + lang + " -f html"
     Right(
       for {
-        file ← writeToTempFile("pygala", code)
+        file ← FileUtil.writeToTempFile("pygala", code)
       } yield ((command + " " + file.getAbsolutePath()).!!))
   }
 
@@ -41,15 +42,4 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
 
   }
 
-  private def writeToTempFile(prefix: String, data: String): IO[File] = io {
-    val file: File = File.createTempFile(prefix, ".tmp")
-    file.deleteOnExit
-    printToFile(file)(p ⇒ p.println(data))
-    file
-  }
-
-  private def printToFile(f: java.io.File)(op: java.io.PrintWriter ⇒ Unit) {
-    val p = new java.io.PrintWriter(f)
-    try { op(p) } finally { p.close() }
-  }
 }
