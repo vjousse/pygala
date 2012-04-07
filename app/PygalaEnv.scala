@@ -2,6 +2,7 @@ package pygala
 import play.api.Configuration
 
 import pygment.Pygment
+import pygment.Markdown
 
 class PygalaEnv(configuration: Configuration) {
 
@@ -9,8 +10,12 @@ class PygalaEnv(configuration: Configuration) {
   // key is missing
   val pygmentBin: String = configuration.underlying.getString("pygment.bin")
 
-  val parser = Pygment(pygmentBin)
-  val supportedFormats:Map[String, String] = parser.supportedFormats.unsafePerformIO
+  val markdownBin: String = configuration.underlying.getString("markdown.bin")
+
+  val codeParser = Pygment(pygmentBin)
+  val markdownParser = Markdown(markdownBin)
+
+  val supportedFormats:Map[String, String] = codeParser.supportedFormats.unsafePerformIO
 
   private def conf(key: String): Option[String] = configuration getString key
 }

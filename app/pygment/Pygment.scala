@@ -4,8 +4,6 @@ package pygment
 import models.SourceParser
 import util.FileUtil
 
-import java.io.File
-
 import scala.sys.process._
 import scalaz.effects._
 

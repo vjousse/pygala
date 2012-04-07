@@ -20,14 +20,27 @@ object Application extends PygalaController {
         case (c, l) ⇒ env.supportedFormats.get(l.toLowerCase).isDefined
       }))
 
+  val markdownForm = Form("markdown" -> text)
+
   def highlight = Action { implicit request ⇒
     codeForm.bindFromRequest.fold(
       formWithErrors ⇒ BadRequest({
         for { error <- formWithErrors.errors } yield(error.message)
       } mkString "\n"),
-      value ⇒ env.parser.colorCode(value._1, value._2).fold(
+      value ⇒ env.codeParser.colorCode(value._1, value._2).fold(
         error ⇒ BadRequest(error),
         code ⇒ Ok(code.unsafePerformIO)))
+  }
+
+
+  def markdown = Action { implicit request ⇒
+    markdownForm.bindFromRequest.fold(
+      formWithErrors ⇒ BadRequest({
+        for { error <- formWithErrors.errors } yield(error.message)
+      } mkString "\n"),
+      value ⇒ env.markdownParser.parse(value).fold(
+        error ⇒ BadRequest(error),
+        markdown ⇒ Ok(markdown.unsafePerformIO)))
   }
 
   def lexers = Action {

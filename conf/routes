@@ -3,6 +3,7 @@
 # ~~~~
 
 POST    /highlight                  pygala.controllers.Application.highlight
+POST    /markdown                   pygala.controllers.Application.markdown
 GET     /formats/input              pygala.controllers.Application.lexers
 
 # Map static resources from the /public folder to the /assets URL path

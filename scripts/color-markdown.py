@@ -8,7 +8,7 @@ def main():
     parser.add_argument('-f', '--file', required=True)
     args = parser.parse_args()
 
-    with open('test-scala.md', 'r') as f:
+    with open(args.file, 'r') as f:
         someText = f.read()
 
         html = markdown.markdown(someText, 
