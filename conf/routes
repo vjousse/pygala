@@ -2,9 +2,11 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-POST    /highlight                  pygala.controllers.Application.highlight
-POST    /markdown                   pygala.controllers.Application.markdown
-GET     /formats/input              pygala.controllers.Application.lexers
+GET     /                           pygala.controllers.Application.index
+
+POST    /highlight                  pygala.controllers.Parsing.highlight
+POST    /markdown                   pygala.controllers.Parsing.markdown
+GET     /formats/input              pygala.controllers.Parsing.lexers
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
