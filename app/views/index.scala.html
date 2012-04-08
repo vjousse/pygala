@@ -1,9 +1,13 @@
-@()
+@(supportedFormats: Map[String, String])
 
 
 @main(title = "Color your code / markdown") {
 
     <h1>Highlight code</h1>
-
+    <ul>
+        @for(f <- supportedFormats.keys.toList.sort((s, t) => s.toLowerCase < t.toLowerCase)) {
+        <li>@f => @supportedFormats.get(f)</li>
+        }
+    </ul>
 
 }

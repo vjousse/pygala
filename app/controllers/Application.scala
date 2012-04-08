@@ -14,6 +14,6 @@ import scalaz.effects._
 object Application extends PygalaController {
 
   def index = Action {
-    Ok(views.html.index())
+    Ok(views.html.index(env.supportedFormats))
   }
 }
