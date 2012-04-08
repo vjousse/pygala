@@ -13,17 +13,8 @@ import scalaz.effects._
 
 object Parsing extends PygalaController {
 
-  val codeForm = Form(
-    tuple(
-      "code" -> text,
-      "lang" -> text) verifying ("Unsupported language to highlight", fields ⇒ fields match {
-        case (c, l) ⇒ env.supportedFormats.get(l.toLowerCase).isDefined
-      }))
-
-  val markdownForm = Form("markdown" -> text)
-
   def highlight = Action { implicit request ⇒
-    codeForm.bindFromRequest.fold(
+    env.codeForm.bindFromRequest.fold(
       formWithErrors ⇒ BadRequest({
         for { error <- formWithErrors.errors } yield(error.message)
       } mkString "\n"),
@@ -32,9 +23,8 @@ object Parsing extends PygalaController {
         code ⇒ Ok(code.unsafePerformIO).as(HTML)))
   }
 
-
   def markdown = Action { implicit request ⇒
-    markdownForm.bindFromRequest.fold(
+    env.markdownForm.bindFromRequest.fold(
       formWithErrors ⇒ BadRequest({
         for { error <- formWithErrors.errors } yield(error.message)
       } mkString "\n"),
