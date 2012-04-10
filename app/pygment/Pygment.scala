@@ -11,7 +11,7 @@ case class Pygment(pygmentBin: String = "/urs/bin/pygmentize") extends SourcePar
 
   def colorCode(code: String, lang: String): Either[String, IO[String]] = {
     //val command: String = pygmentBin + " -l " + lang + " -f html -O noclasses=True,linenos=table"
-    val command: String = pygmentBin + " -l " + lang + " -f html"
+    val command: String = pygmentBin + " -l " + lang + " -f html -O noclasses=True,linenos=table,style=solarized,encoding=utf-8"
     Right(
       for {
         file ← FileUtil.writeToTempFile("pygala", code)
