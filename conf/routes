@@ -4,7 +4,7 @@
 
 GET     /                           pygala.controllers.Application.index
 
-POST    /highlight                  pygala.controllers.Parsing.highlight
+POST    /highlight                  pygala.controllers.Parsing.highlight(api: Boolean ?= true)
 POST    /markdown                   pygala.controllers.Parsing.markdown
 GET     /formats/input              pygala.controllers.Parsing.lexers
 
