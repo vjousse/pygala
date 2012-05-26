@@ -1,0 +1,3 @@
+[submodule "scripts/python/Python-Markdown"]
+	path = scripts/python/Python-Markdown
+	url = git://github.com/vjousse/Python-Markdown.git
