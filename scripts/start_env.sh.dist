@@ -1,0 +1,3 @@
+#/bin/sh
+source ~/usr/src/python/env_pygments/bin/activate
+export PYTHONPATH=/home/vjousse/usr/src/scala/pygala/scripts/python/Python-Markdown
