@@ -2,11 +2,13 @@
 
 @main(title = "Color your code / markdown") {
 
-    <h1>Highlight code</h1>
+    <h1>Download a highlighted version of you code</h1>
+    <p>You can just use this feature in slides or anywhere you need to be sure that the rendering has to be perfect. The code highlighting is provided by <a href="#">Pygments</a>.<p>
     @helper.form(action = pygala.controllers.routes.Parsing.highlight(false)) {
         <div>
             <label for="lang" style="display:block">Choose the language</label>
             <select id="lang" name="lang">
+                <option value="auto">Auto detect</option>
             @for(f <- supportedFormats.keys.toList.sortWith((s, t) => s.toLowerCase < t.toLowerCase)) {
                 <option value="@f">@f => @supportedFormats.get(f)</option>
             }
@@ -16,8 +18,22 @@
             <label for="code" style="display:block">Code</label>
             <textarea name="code" id="code" style="width:700px; height: 400px;"></textarea>
         </div>
-        <input type="submit"/>
+        <input type="submit" value="Highlight my code"/>
     }
+    <!--
+    <h1>Highlight markdown</h1>
+
+    <p>The markdown processing is provided by the <a href="#">Python-Markdown</a> library. The code highlighting inside code blocks is provided by <a href="#">Pygments</a>. You can start your code block (text indented with 4 spaces) by an identifier to ease language detection. This identifier can be #!java if you want line numbering or :::java if you don't.<p>
+    <p>Here is an <a href="https://github.com/vjousse/play2-blog-jousse/blob/master/posts/2012-05-24-trust-the-htype.md">example of markdown</a> that you can use to test.</p>
+    @helper.form(action = pygala.controllers.routes.Parsing.highlight(false)) {
+        <div>
+        <div>
+            <label for="markdown" style="display:block">Markdown</label>
+            <textarea name="code" id="code" style="width:700px; height: 400px;"></textarea>
+        </div>
+        <input type="submit" value="Parse and highlight my markdown"/>
+    }
+    -->
 
     <h2>Try me</h2>
 

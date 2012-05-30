@@ -10,7 +10,7 @@ case class PygalaForms(supportedFormats: Map[String, String]) {
     tuple(
       "code" -> text,
       "lang" -> text) verifying ("Unsupported language to highlight", fields => fields match {
-        case (c, l) => supportedFormats.get(l.toLowerCase).isDefined
+        case (c, l) => l == "auto" || supportedFormats.get(l.toLowerCase).isDefined
       }))
 
   val markdownForm = Form("markdown" -> text)
